@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Practica7</string>
+    <string name="bCerrarSession">cerrar session</string>
 </resources>

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "147378666844",
+    "project_id": "p72022alexandro-dbed6",
+    "storage_bucket": "p72022alexandro-dbed6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147378666844:android:00349f963bb55a75361599",
+        "android_client_info": {
+          "package_name": "practica7.alexandrorodriguez.iesseveroochoa.net"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147378666844-tpoclm3kbgipmkcoptgi5t9tonnhplv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBmVUqFwtL3QbSEFonpIitbx0JOdYEnvOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147378666844-tpoclm3kbgipmkcoptgi5t9tonnhplv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
