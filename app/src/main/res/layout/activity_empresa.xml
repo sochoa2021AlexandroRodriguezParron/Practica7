@@ -4,26 +4,35 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.InicioAppActivity"
-    tools:menu="@menu/menu_inicio">
+    tools:context=".activity.EmpresaActivity">
+
+    <ImageView
+        android:id="@+id/iv_nombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/logo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_datosUser"
+        android:id="@+id/tv_direccion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
-        android:text="TextView"
+        android:text="@string/tv_direccion"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/iv_nombre" />
 
-    <Button
-        android:id="@+id/bCerrarSession"
+    <TextView
+        android:id="@+id/tv_telefono"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/bCerrarSession"
+        android:layout_marginTop="32dp"
+        android:text="@string/tv_telefono"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_datosUser" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_direccion" />
 </androidx.constraintlayout.widget.ConstraintLayout>

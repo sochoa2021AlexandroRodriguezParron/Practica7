@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Practica7</string>
     <string name="bCerrarSession">cerrar session</string>
+    <string name="tv_direccion">Direccion: </string>
+    <string name="tv_direccionFormateado">Direccion: %1$s</string>
+    <string name="tv_telefono">Teléfono: </string>
+    <string name="tv_telefonoFormateado">Teléfono: %1$s</string>
+    <string name="i_cambiarActivity">Ver datos de empresa</string>
 </resources>

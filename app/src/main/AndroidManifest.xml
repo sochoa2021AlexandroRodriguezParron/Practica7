@@ -12,10 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Practica7">
         <activity
-            android:name=".InicioAppActivity"
+            android:name=".activity.EmpresaActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.InicioAppActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

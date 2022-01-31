@@ -1,11 +1,10 @@
-package practica7.alexandrorodriguez.iesseveroochoa.net;
+package practica7.alexandrorodriguez.iesseveroochoa.net.activity;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.MediaDrm;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -15,6 +14,8 @@ import com.firebase.ui.auth.FirebaseAuthUIActivityResultContract;
 import com.firebase.ui.auth.IdpResponse;
 import com.firebase.ui.auth.data.model.FirebaseAuthUIAuthenticationResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+import practica7.alexandrorodriguez.iesseveroochoa.net.R;
 
 public class MainActivity extends AppCompatActivity {
 
