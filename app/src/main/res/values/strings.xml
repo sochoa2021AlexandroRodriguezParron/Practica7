@@ -7,11 +7,13 @@
     <string name="tv_telefonoFormateado">Teléfono: %1$s</string>
     <string name="i_cambiarActivity">Ver datos de empresa</string>
     <string name="tv_Conferencias">Conferencias: </string>
+    <string name="tvConferencia">C.iniciada: %1$s</string>
     <string name="titulo_dialog_conferencia">Información Conferencia</string>
 
     <string name="mensaje_fecha">Fecha: %1$s</string>
     <string name="mensaje_horario">Horario: %1$s</string>
     <string name="mensaje_sala">Sala: %1$s</string>
     <string name="ok">OK</string>
+    <string name="et_Texto">Escribir aqui:</string>
 
 </resources>

@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Alex09/Desktop/Clase/2DAMREP/Android/Tema1/Practica7/app/src/main/res/layout/activity_empresa.xml" value="0.1" />
-        <entry key="..\:/Users/Alex09/Desktop/Clase/2DAMREP/Android/Tema1/Practica7/app/src/main/res/layout/activity_inicio_app.xml" value="0.22" />
+        <entry key="..\:/Users/Alex09/Desktop/Clase/2DAMREP/Android/Tema1/Practica7/app/src/main/res/layout/activity_inicio_app.xml" value="0.25" />
         <entry key="..\:/Users/Alex09/Desktop/Clase/2DAMREP/Android/Tema1/Practica7/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Alex09/Desktop/Clase/2DAMREP/Android/Tema1/Practica7/app/src/main/res/layout/mensaje_item.xml" value="0.22" />
+        <entry key="..\:/Users/Alex09/Desktop/Clase/2DAMREP/Android/Tema1/Practica7/app/src/main/res/xml/mensaje_item.xml" value="0.12222222222222222" />
         <entry key="app/src/main/res/layout/activity_empresa.xml" value="0.2635416666666667" />
         <entry key="app/src/main/res/layout/activity_inicio_app.xml" value="0.2635416666666667" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2635416666666667" />

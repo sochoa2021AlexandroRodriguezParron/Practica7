@@ -20,4 +20,16 @@ public class FirebaseContract {
         public static final String PONENTE = "ponente";
         public static final String SALA = "sala";
     }
+    public static class ConferenciaIniciadaEntry {
+        public static final String COLLECTION_NAME = "conferenciaIniciada";
+        public static final String ID= "conferenciainiciada";
+        public static final String CONFERENCIA="conferencia";
+    }
+    public static class ChatEntry{
+        public static final String COLLECTION_NAME="chat";
+        public static final String USUARIO="usuario";
+        public static final String BODY="body";
+        public static final String FECHA_CREACION="fechaCreacion";
+    }
+
 }
