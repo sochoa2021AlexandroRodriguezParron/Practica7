@@ -17,7 +17,7 @@ import practica7.alexandrorodriguez.iesseveroochoa.net.R;
 import practica7.alexandrorodriguez.iesseveroochoa.net.model.Empresa;
 
 public class EmpresaActivity extends AppCompatActivity implements View.OnClickListener {
-
+    /**ATRIBUTOS**/
     private TextView tv_direccion;
     private TextView tv_telefono;
     private Empresa empresa;
@@ -31,6 +31,9 @@ public class EmpresaActivity extends AppCompatActivity implements View.OnClickLi
         obtenDatosEmpresa();
     }
 
+    /**
+     * OBTENEMOS LOS DATOS DE LA EMPRESAS
+     */
     private void obtenDatosEmpresa() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         DocumentReference docRef = db.collection(FirebaseContract.EmpresaEntry.COLLECTION_NAME).document(FirebaseContract.EmpresaEntry.ID);
@@ -45,6 +48,10 @@ public class EmpresaActivity extends AppCompatActivity implements View.OnClickLi
             }
         });
     }
+
+    /**
+     * ASIGNAMOS LOS VALORES A CADA EMPRESA
+     */
     private void asignaValoresEmpresa() {
         String direccion = getResources().getString(R.string.tv_direccionFormateado, empresa.getDireccion());
         String telefono = getResources().getString(R.string.tv_telefonoFormateado, empresa.getTelefono());

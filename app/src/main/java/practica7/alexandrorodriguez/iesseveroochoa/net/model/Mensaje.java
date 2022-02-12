@@ -4,6 +4,8 @@ import com.google.firebase.firestore.ServerTimestamp;
 
 import java.util.Date;
 
+import practica7.alexandrorodriguez.iesseveroochoa.net.R;
+
 public class Mensaje {
     /**ATRIBUTOS**/
     private String usuario;

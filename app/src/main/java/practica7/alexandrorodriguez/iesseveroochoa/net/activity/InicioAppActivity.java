@@ -3,6 +3,8 @@ package practica7.alexandrorodriguez.iesseveroochoa.net.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +23,9 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.firebase.ui.common.ChangeEventType;
+import com.firebase.ui.firestore.ChangeEventListener;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +35,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -44,8 +50,9 @@ import practica7.alexandrorodriguez.iesseveroochoa.net.model.Conferencia;
 import practica7.alexandrorodriguez.iesseveroochoa.net.model.Mensaje;
 
 public class InicioAppActivity extends AppCompatActivity {
-
+    /**CONSTANTES**/
     private static final String TAG = "P7";
+    /**ATRIBUTOS NECESARIOS**/
     FirebaseAuth auth;
     private TextView tv_datosUser;
     private Button bCerrarSession;
@@ -55,12 +62,16 @@ public class InicioAppActivity extends AppCompatActivity {
     private Conferencia conferenciaActual;
     private EditText et_Texto;
     private ImageButton ib_Envio;
+    private RecyclerView rvChat;
+    private ChatAdapter adapter;
+    private String usuario;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inicio_app);
+        /**RELACIONAMOS ALGUNOS ATRIBUTOS CON LOS OBJETOS DEL LAYOUT**/
         tv_datosUser = findViewById(R.id.tv_datosUser);
         bCerrarSession = findViewById(R.id.bCerrarSession);
         sConferencias = (Spinner)findViewById(R.id.sConferencias);
@@ -68,19 +79,23 @@ public class InicioAppActivity extends AppCompatActivity {
         et_Texto = findViewById(R.id.et_Texto);
         ib_Envio = findViewById(R.id.ib_Envio);
         conferenciaActual = new Conferencia();
+        rvChat=findViewById(R.id.rvChat);
+        rvChat.setLayoutManager(new LinearLayoutManager(this));
 
         auth = FirebaseAuth.getInstance();
         FirebaseUser usrFB= auth.getCurrentUser();
         tv_datosUser.setText(usrFB.getEmail());
         leerConferencias();
         iniciarConferenciasIniciadas();
+
+        /**LE DAMOS ACTION AL BOTÓN DE ENVÍO**/
         ib_Envio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enviarMensaje();
             }
         });
-
+        /**LE DAMOS ACTION AL BOTÓN DE CERRAR SESION**/
         bCerrarSession.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,6 +107,69 @@ public class InicioAppActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * PERMITE QUE PUEDAN MOSTRARSE LOS MENSAJES EN EL RECYCLER VIEW
+     */
+    private void defineAdaptador() {
+        //consulta en Firebase
+        Query query = FirebaseFirestore.getInstance()
+                //coleccion conferencias
+                .collection(FirebaseContract.ConferenciaEntry.COLLECTION_NAME)
+                //documento: conferencia actual
+                .document(conferenciaActual.getId())
+                //colección chat de la conferencia
+                .collection(FirebaseContract.ChatEntry.COLLECTION_NAME)
+                //obtenemos la lista ordenada por fecha
+                .orderBy(FirebaseContract.ChatEntry.FECHA_CREACION,
+                        Query.Direction.DESCENDING);
+        //Creamos la opciones del FirebaseAdapter
+        FirestoreRecyclerOptions<Mensaje> options = new
+                FirestoreRecyclerOptions.Builder<Mensaje>()
+                //consulta y clase en la que se guarda los datos
+                .setQuery(query, Mensaje.class)
+                .setLifecycleOwner(this)
+                .build();
+        //si el usuario ya habia seleccionado otra conferencia, paramos lasescucha
+        if (adapter != null) {
+            adapter.stopListening();
+        }
+        //Creamos el adaptador
+        adapter = new ChatAdapter(options, usuario);
+        //asignamos el adaptador
+        rvChat.setAdapter(adapter);
+        //comenzamos a escuchar. Normalmente solo tenemos un adaptador, estotenemos que
+        //hacerlo en el evento onStar, como indica la documentación
+        adapter.startListening();
+                //Podemos reaccionar ante cambios en la query( se añade un mesaje).Nosotros,
+                // //lo que necesitamos es mover el scroll
+                // del recyclerView al inicio para ver el mensaje nuevo
+                adapter.getSnapshots().addChangeEventListener(new ChangeEventListener() {
+                    @Override
+                    public void onChildChanged(@NonNull ChangeEventType type, @NonNull
+                            DocumentSnapshot snapshot, int newIndex, int oldIndex) {
+                        rvChat.smoothScrollToPosition(0);
+                    }
+                    @Override
+                    public void onDataChanged() {
+                    }
+                    @Override
+                    public void onError(@NonNull FirebaseFirestoreException e) {
+                    }
+                });
+    }
+
+    /**
+     * ES NECESARIO PARA LA ESCUCHA
+     */
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+    /**
+     * PERMITE HACER EL ENVÍO DEL MENSAJE
+     */
     private void enviarMensaje() {
         String body = et_Texto.getText().toString();
         String usuario = tv_datosUser.getText().toString();
@@ -107,8 +185,10 @@ public class InicioAppActivity extends AppCompatActivity {
                     //añadimos el mensaje nuevo
                     .add(mensaje);
             et_Texto.setText("");
-            ChatAdapter chat = new ChatAdapter(mensaje);
+            this.usuario = usuario;
             ocultarTeclado();
+            /**AL PULSAR ENVIAR HACE QUE SE CARGUEN LOS MENSAJES EN EL RECYCLER VIEW**/
+            defineAdaptador();
         }
     }
     /**
@@ -166,6 +246,9 @@ public class InicioAppActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * PARA LEER LAS CONFERENCIAS
+     */
     private void leerConferencias() {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         listaConferencias=new ArrayList<Conferencia>();
@@ -190,6 +273,9 @@ public class InicioAppActivity extends AppCompatActivity {
                 });
     }
 
+    /**
+     * PERMITE HACER LAS CARGA DEL SPINNER, Y REALIZAR LAS FUNCIONES
+     */
     private void cargaSpinner() {
         ArrayList<String> nombres = new ArrayList<>();
         for(Conferencia conferencia : listaConferencias){

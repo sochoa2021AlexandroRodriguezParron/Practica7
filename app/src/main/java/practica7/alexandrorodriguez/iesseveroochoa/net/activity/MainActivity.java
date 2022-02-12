@@ -65,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
         // [END auth_fui_create_intent]
     }
 
+    /**
+     * PERMITE COMPROBAR LA AUTENTICACIÓN
+     */
     private void comprobarAutenticacion() {
         FirebaseAuth auth = FirebaseAuth.getInstance();
         // Primero, verificamos la existencia de una sesión.
